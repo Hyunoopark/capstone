@@ -2,8 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:search_map_place/search_map_place.dart';
 
 void main() => runApp(MyApp());
+
+const kGoogleApiKey = "AIzaSyBsYyXBDCMLdKlyTgOkyN0bkhvNL76X0-Y";
+
+//GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
 class MyApp extends StatelessWidget {
   @override
@@ -57,20 +62,57 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+      resizeToAvoidBottomPadding: false,
+      body: Stack(
+        children: <Widget>[
+          Container(
           child: GoogleMap(
             mapType: _currentMapType,
             initialCameraPosition: _initialPosition,
             onMapCreated: _onMapCreated,
             markers: Set.from(_allMarkers),
+            ),
           ),
-        ),
+          Positioned(
+            top: 60,
+            left: MediaQuery.of(context).size.width * 0.05,
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: SearchMapPlaceWidget(
+              apiKey: kGoogleApiKey,
+              language: 'ko',
+              location: _initialPosition.target,
+              radius: 30000,
+              onSelected: (place) async {
+                final geolocation = await place.geolocation;
+
+                final GoogleMapController controller = await _controller.future;
+
+                controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
+                controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  /*Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      PlacesDetailsResponse detail =
+      await _places.getDetailsByPlaceId(p.placeId);
+
+      var placeId = p.placeId;
+      double lat = detail.result.geometry.location.lat;
+      double lng = detail.result.geometry.location.lng;
+
+      var address = await Geocoder.local.findAddressesFromQuery(p.description);
+
+      print(lat);
+      print(lng);
+    }
+  }
+   */
 
   /*Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
