@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapbox_search/mapbox_search.dart';
 import 'package:search_map_place/search_map_place.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -68,6 +72,7 @@ class MapSampleState extends State<MapSample> {
           Container(
           child: GoogleMap(
             mapType: _currentMapType,
+            myLocationEnabled: true,
             initialCameraPosition: _initialPosition,
             onMapCreated: _onMapCreated,
             markers: Set.from(_allMarkers),
@@ -77,24 +82,26 @@ class MapSampleState extends State<MapSample> {
             top: 60,
             left: MediaQuery.of(context).size.width * 0.05,
             width: MediaQuery.of(context).size.width * 0.9,
-            child: SearchMapPlaceWidget(
-              apiKey: kGoogleApiKey,
-              language: 'ko',
-              location: _initialPosition.target,
-              radius: 30000,
-              onSelected: (place) async {
-                final geolocation = await place.geolocation;
-
-                final GoogleMapController controller = await _controller.future;
-
-                controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
-                controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
-              },
-            ),
+            child: MapBoxPlaceSearchWidget(
+              popOnSelect: true,
+              apiKey:
+              kGoogleApiKey,
+              limit: 10,
+              onSelected: (place) {},
+              context: context,
+            )
           ),
         ],
       ),
     );
+  }
+
+  Future<Position> getCurrentUserLocation() async {
+    return Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((location) {
+      return location;
+    });
   }
 
   /*Future<Null> displayPrediction(Prediction p) async {
@@ -114,8 +121,27 @@ class MapSampleState extends State<MapSample> {
   }
    */
 
+
   /*Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }*/
+
+  /*
+  //검색하는 기능
+  SearchMapPlaceWidget(
+              apiKey: kGoogleApiKey,
+              language: 'ko',
+              location: _initialPosition.target,
+              radius: 30000,
+              onSelected: (place) async {
+                final geolocation = await place.geolocation;
+
+                final GoogleMapController controller = await _controller.future;
+
+                controller.animateCamera(CameraUpdate.newLatLng(geolocation.coordinates));
+                controller.animateCamera(CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
+              },
+            ),
+   */
 }
