@@ -128,7 +128,7 @@ class MapSampleState extends State<MapSample> {
   }*/
 
   /*
-  //검색하는 기능
+
   SearchMapPlaceWidget(
               apiKey: kGoogleApiKey,
               language: 'ko',
