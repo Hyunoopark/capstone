@@ -39,7 +39,9 @@ class _MapPageState extends State<MapPage> {
       markerId: MarkerId('myMarker'),
       draggable: false,
       onTap: () {
-        print('marker Tapped');
+        setState(() {
+          pinPillPosition = 0;
+        });
       },
       position: LatLng(36.08162, 129.39893),
     ));
@@ -130,7 +132,7 @@ class _MapPageState extends State<MapPage> {
               ),
               AnimatedPositioned(
                 bottom: pinPillPosition, right: 0, left: 0,
-                duration: Duration(milliseconds: 200),
+                duration: Duration(milliseconds: 100),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -154,11 +156,33 @@ class _MapPageState extends State<MapPage> {
                               margin: EdgeInsets.only(left: 10),
                               width: 50, height: 50,
                               child: ClipOval(
-
+                                child: Icon(Icons.pan_tool),
                               )
                             ),
-                            Expanded(),
-                          ]
+                            Expanded(
+                            child: Container(
+                            margin: EdgeInsets.only(left: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      '도시락 떨이',
+                                      style: TextStyle(
+                                      )
+                                    ),
+                                    Text(
+                                      '한솥도시락',
+                                      style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey
+                                      )
+                                     ),
+                                 ], // end of Column Widgets
+                              ),  // end of Column
+                            ),
+                          ),
+                        ]
                       )
                   )
                 ),
