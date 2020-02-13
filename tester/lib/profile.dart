@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,9 +6,9 @@ import 'userinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
 
-  ProfilePage({Key key, @required this.userDetails}) : super(key: key);
+  //ProfilePage({Key key, @required this.userDetails}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -30,10 +29,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 6.0,
                   style: BorderStyle.solid
               ),
-              image: DecorationImage(
-                fit : BoxFit.fill,
-                image: NetworkImage(widget.userDetails.photoUrl),
-              )
           ),
         )
     );

@@ -5,6 +5,8 @@ import 'home.dart';
 import 'login.dart';
 import 'userinfo.dart';
 import 'profile.dart';
+import 'map.dart';
+import 'write.dart';
 
 class NavigatePage extends StatefulWidget {
   UserDetails userDetails;
@@ -18,6 +20,8 @@ class _NavigateState extends State<NavigatePage> {
   int _selectedPage = 0;
   final _pageOptions = [
     HomePage(),
+    MapPage(),
+    WritePage(),
     ProfilePage(),
   ];
 
@@ -43,8 +47,16 @@ class _NavigateState extends State<NavigatePage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 30,),
+              icon: Icon(Icons.home, size: 30),
               title: Text('home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map, size: 30),
+              title: Text('Map'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add, size: 30),
+              title: Text('Write'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person, size: 30),
