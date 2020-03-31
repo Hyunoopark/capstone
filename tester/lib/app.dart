@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'animation.dart';
 import 'login.dart';
 import 'navigate.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Map',
       home: LoginPage(),
-      initialRoute: '/home',
+      //initialRoute: '/home',
       routes: {
       },
       onGenerateRoute: _getRoute,

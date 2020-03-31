@@ -55,11 +55,11 @@ class _LoginPageState extends State<LoginPage> {
                           children: <Widget>[
                             Icon(FontAwesomeIcons.google, color: Colors.yellow[700]),
                             SizedBox(width: 10.0,),
-                            Text('카카오로 로그인하기',
+                            Text('로그인하기',
                               style: TextStyle(color: Colors.black, fontSize: 18.0, fontFamily: 'pic'),),
                           ],
                         ),
-                        onPressed: () async {
+                        onPressed: () {
                           _navigateHome(context);
                         },
                       ),

@@ -21,7 +21,7 @@ class _NavigateState extends State<NavigatePage> {
   final _pageOptions = [
     HomePage(),
     MapPage(),
-    WritePage(),
+    WritingPage(),
     ProfilePage(),
   ];
 
